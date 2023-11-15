@@ -18,7 +18,7 @@
         </MdEditor>
       </VCol>
       <VCol cols="6">
-        <MdPreview v-model="text" />
+        <MdPreview v-model="text" :sanitize="sanitizeHtml" />
       </VCol>
     </VRow>
   </VContainer>
@@ -31,10 +31,22 @@ import 'md-editor-v3/lib/style.css';
 import Toolbar from '@/components/Toolbar.vue';
 
 const text = ref('# Hello World')
-</script>
 
-<style scoped="scss">
-.md-editor .md-editor-toolbar-item .md-editor-icon{
-  display: none;
+const sanitizeHtml = (html) => {
+  let newHtml = html
+  
+  const colRegex = /\[col\-left\](.*?)\[\/col\-left\]\[col\-right\](.*?)\[\/col\-right\]/gm;
+  const matches = [...html.matchAll(colRegex)][0];
+  if (matches) {
+    for (let i = 0; i < matches.length; i += 3) {
+      newHtml = newHtml.replace(matches[i], `
+      <div class="v-row">
+        <div class="v-col v-col-6">${matches[i+1] || ''}</div>
+        <div class="v-col v-col-6">${matches[i+2] || ''}</div>
+      </div>
+      `)
+    }
+  }
+  return newHtml;
 }
-</style>
+</script>
