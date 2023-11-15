@@ -1,15 +1,15 @@
 <template>
-  <ImageToolbarItem />
-  <VideoToolbarItem />
-  <DescriptionToolbarItem />
-  <QuoteToolbarItem />
-  <FootnoteToolbarItem />
-  <LinkToolbarItem />
-  <ButtonToolbarItem />
-  <FileToolbarItem />
-  <TwoColumnToolbarItem />
-  <TableToolbarItem />
-  <TableRowToolbarItem />
+  <ImageToolbarItem :insert="insert"  />
+  <VideoToolbarItem :insert="insert"  />
+  <DescriptionToolbarItem :insert="insert"  />
+  <QuoteToolbarItem :insert="insert"  />
+  <FootnoteToolbarItem :insert="insert"  />
+  <LinkToolbarItem :insert="insert"  />
+  <ButtonToolbarItem :insert="insert" />
+  <FileToolbarItem :insert="insert" />
+  <TwoColumnToolbarItem :insert="insert" />
+  <TableToolbarItem :insert="insert" />
+  <TableRowToolbarItem :insert="insert" />
 </template>
 
 <script setup>
@@ -24,4 +24,11 @@ import TableRowToolbarItem from '@/components/toolbarItems/TableRowToolbarItem';
 import TableToolbarItem from '@/components/toolbarItems/TableToolbarItem';
 import TwoColumnToolbarItem from '@/components/toolbarItems/TwoColumnToolbarItem';
 import VideoToolbarItem from '@/components/toolbarItems/VideoToolbarItem';
+
+const props = defineProps({
+  insert: {
+    type: Function,
+    default: () => {}
+  }
+});
 </script>
